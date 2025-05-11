@@ -122,7 +122,7 @@ entrenagym-vue/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <url-del-repo>
+git clone <https://github.com/willi-lang/entrenagym-vue.git>
 cd entrenagym-vue
 ```
 
