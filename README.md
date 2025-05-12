@@ -16,6 +16,7 @@ Plataforma web integral para conectar usuarios con profesionales del fitness, fi
 - [Funcionamiento de la API y Gestión de Citas](#funcionamiento-de-la-api-y-gestión-de-citas)
 - [Flujo de Uso](#flujo-de-uso)
 - [Captura de Pantalla](#captura-de-pantalla)
+- [Pruebas recomendadas en Postman](#pruebas-recomendadas-en-postman)
 - [Licencia](#licencia)
 
 ---
@@ -214,6 +215,103 @@ Asegúrate de tener MongoDB corriendo localmente o ajusta `MONGO_URI` según tu 
 ## Captura de Pantalla
 
 ![Screenshot de EntrenaGym](./screenshot.png)
+
+---
+
+## Pruebas recomendadas en Postman
+
+A continuación se describen las mejores pruebas que puedes realizar en Postman para verificar el correcto funcionamiento de la API de EntrenaGym. Recuerda incluir el header `Authorization: Bearer <token>` en las rutas protegidas.
+
+### 1. Autenticación
+
+- **Registro de usuario**
+  - Método: `POST`
+  - URL: `http://localhost:5000/api/auth/register`
+  - Body (JSON):
+    ```json
+    {
+      "nombre": "Juan Pérez",
+      "email": "juan@email.com",
+      "password": "123456"
+    }
+    ```
+
+- **Login de usuario**
+  - Método: `POST`
+  - URL: `http://localhost:5000/api/auth/login`
+  - Body (JSON):
+    ```json
+    {
+      "email": "juan@email.com",
+      "password": "123456"
+    }
+    ```
+  - **Respuesta esperada:** token JWT y datos del usuario.
+
+### 2. Gestión de Citas (requiere token JWT)
+
+- **Crear cita**
+  - Método: `POST`
+  - URL: `http://localhost:5000/api/citas`
+  - Headers: `Authorization: Bearer <token>`
+  - Body (JSON):
+    ```json
+    {
+      "fecha": "2024-07-01",
+      "hora": "10:00",
+      "entrenador": "Nombre Entrenador",
+      "tipo": "presencial",
+      "descripcion": "Sesión de entrenamiento funcional"
+    }
+    ```
+
+- **Obtener citas del usuario**
+  - Método: `GET`
+  - URL: `http://localhost:5000/api/citas`
+  - Headers: `Authorization: Bearer <token>`
+
+- **Editar cita**
+  - Método: `PUT`
+  - URL: `http://localhost:5000/api/citas/<id_cita>`
+  - Headers: `Authorization: Bearer <token>`
+  - Body (JSON):
+    ```json
+    {
+      "hora": "11:00",
+      "descripcion": "Cambio de horario"
+    }
+    ```
+
+- **Eliminar cita**
+  - Método: `DELETE`
+  - URL: `http://localhost:5000/api/citas/<id_cita>`
+  - Headers: `Authorization: Bearer <token>`
+
+### 3. Newsletter
+
+- **Suscribirse al newsletter**
+  - Método: `POST`
+  - URL: `http://localhost:5000/api/newsletter`
+  - Body (JSON):
+    ```json
+    {
+      "email": "juan@email.com"
+    }
+    ```
+
+### 4. Contacto
+
+- **Enviar mensaje de contacto**
+  - Método: `POST`
+  - URL: `http://localhost:5000/api/contacto`
+  - Body (JSON):
+    ```json
+    {
+      "nombre": "Juan Pérez",
+      "email": "juan@email.com",
+      "mensaje": "Tengo una duda sobre los entrenadores."
+    }
+    ```
 
 ---
 
